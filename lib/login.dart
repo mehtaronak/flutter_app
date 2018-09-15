@@ -122,7 +122,7 @@ class LoginScreenState extends State<LoginScreen> {
             onPressed: _handleGetContact,
           ),
           new RaisedButton(
-            child: const Text('REFRESH'),
+            child: const Text('Next Screen'),
             onPressed: navigationPage,
           ),
         ],

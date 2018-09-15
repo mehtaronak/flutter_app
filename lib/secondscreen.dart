@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/thirdscreen.dart';
 
-const String _AccountAbbr = 'RM';
-
 class SecondScreen extends StatelessWidget {
   String emilID, name, userImage;
 
@@ -25,7 +23,8 @@ class SecondScreen extends StatelessWidget {
               accountName: new Text(name),
               accountEmail: new Text(emilID),
               currentAccountPicture: new CircleAvatar(
-                  backgroundColor: Colors.brown, child: new Text(_AccountAbbr)),
+                  backgroundImage: new NetworkImage(userImage),
+                  child: new Text("")),
               otherAccountsPictures: <Widget>[
                 GestureDetector(
                   onTap: () {
@@ -33,6 +32,10 @@ class SecondScreen extends StatelessWidget {
                   },
                   child: Semantics(
                     label: "Switch to testing@test.com",
+                    child: new CircleAvatar(
+                      backgroundColor: Colors.brown,
+                      child: new Text('RM'),
+                    ),
                   ),
                 )
               ],
@@ -69,19 +72,20 @@ class SecondScreen extends StatelessWidget {
   }
 
   void openOtherAccount(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: new Text("Sorry"),
-            actions: <Widget>[
-              FlatButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: new Text("OKAY"))
-            ],
-          );
-        });
+    Navigator.of(context).pop();
+    showDialog<Null>(
+      context: context,
+      child: new AlertDialog(
+        title: const Text('Account switching not implemented.'),
+        actions: <Widget>[
+          new FlatButton(
+            child: const Text('OK'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      ),
+    );
   }
 }
