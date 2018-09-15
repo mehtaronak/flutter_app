@@ -23,7 +23,7 @@ class LoginScreenState extends State<LoginScreen> {
 
   void navigationPage() {
     //Navigator.of(context).pushNamed('/SecondScreen');
-    Navigator.push(context, new MaterialPageRoute(builder: (context) => new SecondScreen(_currentUser.displayName,_currentUser.email)));
+    Navigator.push(context, new MaterialPageRoute(builder: (context) => new SecondScreen(_currentUser.displayName,_currentUser.email,_currentUser.photoUrl)));
   }
 
   @override

@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/thirdscreen.dart';
-import 'login.dart';
+
+const String _AccountAbbr = 'RM';
 
 class SecondScreen extends StatelessWidget {
+  String emilID, name, userImage;
 
-  String emilID,name;
-  SecondScreen(String emilID,String name){
+  SecondScreen(String emilID, String name, String userImage) {
     this.emilID = emilID;
     this.name = name;
+    this.userImage = userImage;
   }
 
   @override
@@ -22,7 +24,8 @@ class SecondScreen extends StatelessWidget {
             new UserAccountsDrawerHeader(
               accountName: new Text(name),
               accountEmail: new Text(emilID),
-              currentAccountPicture: new Image.asset('images/user.png'),
+              currentAccountPicture: new CircleAvatar(
+                  backgroundColor: Colors.brown, child: new Text(_AccountAbbr)),
               otherAccountsPictures: <Widget>[
                 GestureDetector(
                   onTap: () {
