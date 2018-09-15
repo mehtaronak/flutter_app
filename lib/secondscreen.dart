@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/thirdscreen.dart';
 
 class SecondScreen extends StatelessWidget {
-  SecondScreen();
+
+  String emilID,name;
+  SecondScreen(String emilID,String name){
+    this.emilID = emilID;
+    this.name = name;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +19,8 @@ class SecondScreen extends StatelessWidget {
         child: new ListView(
           children: <Widget>[
             new UserAccountsDrawerHeader(
-              accountName: new Text("Ronak Mehta"),
-              accountEmail: new Text("test@gmail.com"),
+              accountName: new Text(name),
+              accountEmail: new Text(emilID),
               currentAccountPicture: new Image.asset('images/user.png'),
               otherAccountsPictures: <Widget>[
                 GestureDetector(
