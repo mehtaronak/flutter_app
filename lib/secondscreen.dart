@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/thirdscreen.dart';
+import 'login.dart';
 
 class SecondScreen extends StatelessWidget {
 
@@ -38,15 +39,24 @@ class SecondScreen extends StatelessWidget {
               leading: const Icon(Icons.home),
               title: new Text("Item 1"),
               onTap: () {
+                Navigator.pop(context);
                 Navigator.of(context).pushNamed('/ThirdScreen');
               },
             ),
             new ListTile(
               leading: const Icon(Icons.settings),
-              title: new Text("Item 2"),
+              title: new Text("Go to 2nd Screen"),
               onTap: () {
+                Navigator.pop(context);
                 Navigator.push(context,
                     MaterialPageRoute(builder: (ctxt) => ThirdScreen()));
+              },
+            ),
+            new ListTile(
+              leading: const Icon(Icons.settings),
+              title: new Text("Logout"),
+              onTap: () {
+                Navigator.pop(context);
               },
             )
           ],
