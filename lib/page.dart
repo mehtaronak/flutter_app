@@ -4,56 +4,51 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class Page2 extends StatefulWidget {
-  @override
-  _Page2State createState() => _Page2State();
-}
+import 'contact.dart';
 
-class _Page2State extends State<Page2>
-    with AutomaticKeepAliveClientMixin<Page2> {
-  var list = List();
-
-  _loadList() async {
-    final response =
-        await http.get("https://jsonplaceholder.typicode.com/photos/");
-    if (response.statusCode == 200) {
-      await new Future.delayed(const Duration(seconds: 1));
-      setState(() {
-        list = json.decode(response.body) as List;
-      });
-    } else {
-      throw Exception('Failed to load posts');
-    }
-  }
-
-  @override
-  void initState() {
-    _loadList();
-    super.initState();
-  }
+class ContactTab extends StatelessWidget {
+  ContactTab();
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ListView.builder(
-        itemCount: list.length,
-        itemBuilder: (BuildContext context, int index) {
-          final data = list[index];
-          return ListTile(
-            contentPadding: EdgeInsets.all(10.0),
-            title: Text(data['title']),
-            trailing: Image.network(
-              data['thumbnailUrl'],
-              height: 20.0,
-              width: 20.0,
-            ),
-          );
-        },
+    return new MaterialApp(
+      theme: new ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: new Scaffold(
+        body: new Container(
+          child: new FutureBuilder<List<Contact>>(
+            future: fetchUsersFromGitHub(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return new ListView.builder(
+                    itemCount: snapshot.data.length,
+                    itemBuilder: (context, index) {
+                      return new Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            new Text(snapshot.data[index].name,
+                                style:
+                                    new TextStyle(fontWeight: FontWeight.bold)),
+                            new Divider()
+                          ]);
+                    });
+              } else if (snapshot.hasError) {
+                return new Text("${snapshot.error}");
+              }
+
+              // By default, show a loading spinner
+              return new CircularProgressIndicator();
+            },
+          ),
+        ),
       ),
     );
   }
 
-  // TODO: implement wantKeepAlive
-  @override
-  bool get wantKeepAlive => true;
+  Future<List<Contact>> fetchUsersFromGitHub() async {
+    final response = await http.get('https://api.androidhive.info/contacts/');
+    Map<String, dynamic> responseJson = json.decode(response.body.toString());
+    return responseJson['contacts'];
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'page.dart';
 
 class ThirdScreen extends StatelessWidget {
   ThirdScreen();
@@ -27,7 +28,7 @@ class ThirdScreen extends StatelessWidget {
         ),
         body: new TabBarView(
           children: <Widget>[
-            new Text("Tab 1"),
+            new ContactTab(),
             new Text("Tab 2"),
             new Text("Tab 3"),
           ],
